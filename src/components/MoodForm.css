@@ -1,0 +1,53 @@
+.mood-form {
+  background: #fffaf3;
+  border: 2px solid #d6c3a3;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 15px auto;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0px 3px 10px rgba(92, 64, 51, 0.2);
+}
+
+.roast-options {
+  display: flex;
+  justify-content: space-around;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+.roast-btn {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.roast-btn.active {
+  color: white;
+  transform: scale(1.1);
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+.submit-btn {
+  background-color: #6f4e37;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #5c4033;
+}
