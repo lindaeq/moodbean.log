@@ -11,9 +11,9 @@
 
 .roast-options {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column; /* stacked vertically */
+  gap: 8px;
   margin: 15px 0;
-  flex-wrap: wrap;
 }
 
 .roast-btn {

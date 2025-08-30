@@ -1,22 +1,13 @@
 import React from "react";
-import "./MoodCalendar.css";
 
-export default function MoodCalendar({ moods }) {
-  const startOfYear = new Date(new Date().getFullYear(), 0, 1);
-  const today = new Date();
+export default function MoodCalendar({ moods, selectedDate, setSelectedDate }) {
+  const year = new Date().getFullYear();
 
-  // Generate all dates in the year
-  const days = [];
-  let current = new Date(startOfYear);
-  while (current <= today) {
-    days.push(new Date(current));
-    current.setDate(current.getDate() + 1);
-  }
+  const formatDate = (d) => new Date(d).toISOString().split("T")[0];
 
-  // Map moods by date (YYYY-MM-DD → roast)
   const moodMap = {};
   moods.forEach((m) => {
-    moodMap[m.date] = m.roast;
+    moodMap[formatDate(m.date)] = m.roast;
   });
 
   const roastColors = {
@@ -27,25 +18,48 @@ export default function MoodCalendar({ moods }) {
     decaf: "#BFA6A0",
   };
 
+  const months = Array.from({ length: 12 }, (_, i) => {
+    const start = new Date(year, i, 1);
+    const end = new Date(year, i + 1, 0);
+    const days = [];
+    let current = new Date(start);
+    while (current <= end) {
+      days.push(new Date(current));
+      current.setDate(current.getDate() + 1);
+    }
+    return { name: start.toLocaleString("default", { month: "short" }), days };
+  });
+
   return (
-    <div className="mood-calendar">
-      <h2>Your Year in Coffee</h2>
-      <div className="calendar-grid">
-        {days.map((day, i) => {
-          const dateStr = day.toISOString().split("T")[0];
-          const roast = moodMap[dateStr];
-          return (
-            <div
-              key={i}
-              className="calendar-cell"
-              title={`${dateStr} - ${roast || "No brew logged"}`}
-              style={{
-                backgroundColor: roast ? roastColors[roast] : "#eee",
-              }}
-            />
-          );
-        })}
-      </div>
-    </div>
+    <>
+      {months.map((month) => {
+        const firstDay = month.days[0].getDay();
+        const blanks = Array(firstDay).fill(null);
+
+        return (
+          <div key={month.name} className="month-block">
+            <div className="month-name">{month.name}</div>
+            <div className="calendar-grid">
+              {blanks.map((_, i) => (
+                <div key={`blank-${i}`} className="calendar-cell blank" />
+              ))}
+              {month.days.map((day, i) => {
+                const dateStr = formatDate(day);
+                const roast = moodMap[dateStr];
+                return (
+                  <div
+                    key={i}
+                    className={`calendar-cell ${selectedDate === dateStr ? "selected" : ""}`}
+                    title={roast ? `${dateStr} - ${roast}` : ""}
+                    style={{ backgroundColor: roast ? roastColors[roast] : "#eee" }}
+                    onClick={() => roast ? setSelectedDate(dateStr) : setSelectedDate(null)}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+    </>
   );
 }
