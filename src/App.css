@@ -1,166 +1,246 @@
-/* ================================
-   App Container: 3 columns
-   ================================ */
-.app-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1.2fr; /* slim form | note | calendar */
-  gap: 15px;
+/* Page slide animation */
+.page-container {
+  display: flex;
+  width: 200%;
+  transition: transform 0.6s ease-in-out;
+}
+.page {
+  width: 100vw;
   height: 100vh;
+  flex-shrink: 0;
+}
+.show-page1 { transform: translateX(0); }
+.show-page2 { transform: translateX(-100vw); }
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Just+Me+Again+Down+Here&family=Inter:wght@400;600&display=swap');
+
+body {
+  margin: 0;
+  background: #fdf7f2;
+  font-family: 'Just Me Again Down Here', cursive;
+  font-size: 18px;
+  color: #333;
+}
+
+/* ---------- Page 1 ---------- */
+.page1 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   padding: 20px;
-  background-color: #573512; /* soft pastel beige */
-  font-family: 'Helvetica', sans-serif;
 }
-
-/* ================================
-   Left Panel: Add Brew Form
-   ================================ */
-.left-panel {
-  background-color: #fffaf3;
-  padding: 15px;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(92, 64, 51, 0.15);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+.page1-header {
+  align-self: flex-start;
+  margin-left: 30px;
+  margin-top: 20px;
 }
-
-.left-panel h2 {
-  margin-bottom: 12px;
-  color: #5c4033;
-  font-size: 1.1rem;
+.logo {
+  font-size: 40px;
+  margin-bottom: 0;
 }
-
-/* Roast Buttons Vertical */
-.roast-options {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin: 10px 0;
+.subtitle {
+  font-size: 24px;
+  margin-top: 4px; /* reduced gap under logo */
+  margin-bottom: 20px;
 }
-
-/* Buttons */
-.roast-btn {
-  padding: 8px;
-  border-radius: 0;
-  border: 1px solid #d6c3a3;
-  cursor: pointer;
-  transition: all 0.2s;
-  background-color: #eee;
-  color: #5c4033;
-  text-align: left;
-}
-
-.roast-btn.active {
-  background-color: #A9745B;
-  color: white;
-}
-
-textarea {
-  width: 100%;
-  padding: 8px;
-  border-radius: 0;
-  border: 1px solid #d6c3a3;
-  margin-top: 10px;
-}
-
-.submit-btn {
-  background-color: #6f4e37;
-  color: white;
-  border: none;
-  padding: 8px 10px;
-  border-radius: 0;
-  margin-top: 10px;
-  cursor: pointer;
-}
-
-.submit-btn:hover {
-  background-color: #5c4033;
-}
-
-/* ================================
-   Middle Panel: Note Display
-   ================================ */
-.middle-panel {
-  background-color: #fff6e8;
-  padding: 10px; /* smaller padding */
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(92, 64, 51, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  min-height: 150px; /* smaller height */
-  font-size: 0.85rem;
-  width: 100%;
-}
-
-/* Widget Placeholder Box */
-.widget-placeholder {
-  margin-top: 10px;
-  width: 100%;
-  height: 100px;
-  background-color: #fdf6f0;
-  border: 1px dashed #d6c3a3;
-  border-radius: 4px;
-}
-
-/* ================================
-   Right Panel: Calendar
-   ================================ */
-.right-panel {
-  background-color: #fffaf3;
-  padding: 4px; /* slimmer padding */
-  border-radius: 6px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns for months */
-  grid-template-rows: repeat(6, auto);
-  gap: 3px;
-  overflow-y: auto;
-  max-width: 25vw; /* slim column */
-}
-
-/* Month Block */
-.month-block {
-  text-align: center;
-  padding: 1px; /* tiny padding */
-  border-radius: 2px;
-  background-color: #fdf6f0;
+.brew-section {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  margin-top: -125px; /* keep centered higher */
+}
+.typing-text {
+  font-size: 28px;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #000;
+  width: 0;
+  animation: typing 2.5s steps(13, end) forwards, blink 0.8s step-end infinite;
+  margin-bottom: 18px;
+}
+@keyframes typing {
+  from { width: 0; }
+  to { width: 160px; } /* reduced width for fewer spaces */
+}
+@keyframes blink {
+  50% { border-color: transparent; }
 }
 
-/* Remove month name completely */
-.month-name {
-  display: none;
+/* Roast buttons stacked vertically */
+.brew-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-
-/* Calendar Grid */
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 1px; 
-  justify-items: center;
-}
-
-/* Calendar Cell */
-.calendar-cell {
-  width: 12px;
-  height: 12px;
+.brew-button {
+  padding: 8px 14px;
+  font-size: 14px;
+  width: 180px;
+  border: none;
   border-radius: 0;
   cursor: pointer;
-  transition: transform 0.1s, border 0.1s;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  text-transform: none; /* lowercase */
+  transition: transform 0.2s, opacity 0.2s;
+}
+.brew-button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+.brew-button.light-latte { background: #ffe6a7; color: #432818; }
+.brew-button.caramel { background: #99582a; color: #fff; }
+.brew-button.medium { background: #bb9457; color: #fff; }
+.brew-button.dark { background: #6f1d1b; color: #fff; }
+.brew-button.espresso { background: #432818; color: #fff; }
+
+/* Note field minimal */
+.note-field {
+  width: 180px;
+  min-height: 60px;
+  margin-top: 12px;
+  padding: 6px;
+  border: none;
+  border-radius: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  background: #fff;
+  color: #333;
+  resize: none;
+}
+.note-field:focus { outline: none; }
+
+/* Submit button flat */
+.submit-button {
+  margin-top: 12px;
+  padding: 6px 14px;
+  background: #d8e2dc;
+  border: none;
+  border-radius: 0;
+  font-size: 14px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: none; /* lowercase */
+  transition: opacity 0.2s, transform 0.2s;
+}
+.submit-button:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
 }
 
-.calendar-cell:hover {
-  transform: scale(1.3);
-  outline: 1px solid #A9745B;
+/* Footer */
+.footer {
+  position: absolute;
+  bottom: 10px;
+  right: 20px; /* bottom right */
+  font-size: 20px;
 }
 
-.calendar-cell.blank {
-  background: transparent;
+/* ---------- Page 2 ---------- */
+.page2 {
+  display: flex;
+  height: 100%;
 }
 
-.calendar-cell.selected {
-  border: 2px solid #A9745B;
+/* Strips */
+.strip {
+  padding: 20px;
 }
+.strip-left {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.strip-middle {
+  flex: 1.2;
+  border-left: 1px solid #ccc;
+  padding: 20px;
+}
+.strip-right {
+  flex: 0.8;
+  border-left: 1px solid #ccc;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: #fff9f5;
+  padding: 10px;
+  overflow-y: auto; /* ensure full scroll */
+}
+
+/* Page2 typing */
+.typing-large {
+  font-size: 28px;
+  margin-bottom: 16px;
+  animation: typing 2.5s steps(13, end) forwards, blink 0.8s step-end infinite;
+}
+
+/* Brew buttons same as Page1 */
+.strip-left .brew-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Header + booth */
+.header h2 {
+  font-size: 26px;
+  margin: 0;
+  text-transform: none;
+}
+.header p {
+  margin: 2px 0;
+  font-size: 13px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+}
+.booth-placeholder {
+  margin-top: 20px;
+  border: 2px dashed #aaa;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+/* Calendar */
+.heatmap {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.month-block {
+  margin-bottom: 20px;
+}
+.month-block h3 {
+  font-size: 24px;
+  margin-bottom: 6px;
+  text-transform: none;
+}
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 20px);
+  gap: 4px;
+}
+.day-box {
+  width: 20px;
+  height: 20px;
+  background: #fdf7f2; /* light beige */
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.day-box:hover {
+  background: #ddd;
+  transform: scale(1.05);
+}
+.day-box.filled { background: #333; }
+.day-box.selected { outline: none; transform: scale(1.05); }
+.day-box.empty { background: transparent; cursor: default; }

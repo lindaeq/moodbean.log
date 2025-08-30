@@ -1,60 +1,40 @@
 import React, { useState } from "react";
-import MoodForm from "./components/MoodForm";
-import MoodCalendar from "./components/MoodCalendar";
-import MoodList from "./components/MoodList";
-import MoodChart from "./components/MoodChart";
-
 import "./App.css";
+import Page1 from "./Page1";
+import Page2 from "./Page2";
 
-export default function App() {
-  const [moods, setMoods] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(null);
+function App() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [moods, setMoods] = useState({});
+  const [selectedDay, setSelectedDay] = useState(null);
 
-  const addMood = (newEntry) => {
-    setMoods((prev) => [...prev, newEntry]);
-  };
-
-  const selectedMood = moods.find((m) => m.date === selectedDate);
-
-  const formatFriendlyDate = (dateStr) => {
-    if (!dateStr) return "";
-    const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateStr).toLocaleDateString(undefined, options);
+  const handleAddMood = (date, brew, note) => {
+    setMoods((prev) => ({ ...prev, [date]: { brew, note } }));
+    setSelectedDay(date);
+    setCurrentPage(2); // after submit on Page1 -> go to Page2
   };
 
   return (
-    <div className="app-container">
-      {/* Left Panel: Add Brew Form */}
-      <div className="left-panel">
-        <MoodForm addMood={addMood} />
+    <div
+      className={`page-container ${
+        currentPage === 1 ? "show-page1" : "show-page2"
+      }`}
+    >
+      <div className="page">
+        <Page1 onSubmit={handleAddMood} />
       </div>
-
-      {/* Middle Panel: Note Display */}
-      <div className="middle-panel">
-        <div style={{ width: "100%" }}>
-          {selectedMood ? (
-            <>
-              <h3 style={{ fontSize: "0.85rem" }}>Note for {formatFriendlyDate(selectedMood.date)}</h3>
-              <p><strong>Roast:</strong> {selectedMood.roast.toUpperCase()}</p>
-              <p><strong>Note:</strong> {selectedMood.note || "No note"}</p>
-            </>
-          ) : (
-            <p style={{ fontSize: "0.75rem" }}>Click a calendar square to see your note ☕</p>
-          )}
-        </div>
-
-        {/* Placeholder box for future widget */}
-        <div className="widget-placeholder"></div>
-      </div>
-
-      {/* Right Panel: Calendar */}
-      <div className="right-panel">
-        <MoodCalendar
+      <div className="page">
+        <Page2
+          onSubmit={(date, brew, note) =>
+            setMoods((prev) => ({ ...prev, [date]: { brew, note } }))
+          }
           moods={moods}
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
+          selectedDay={selectedDay}
+          setSelectedDay={setSelectedDay}
         />
       </div>
     </div>
   );
 }
+
+export default App;
