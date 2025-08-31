@@ -20,6 +20,10 @@ function Page1({ onSubmit }) {
     setSelectedBrew("");
   };
 
+  const handleBrewClick = (brewName) => {
+    setSelectedBrew(prev => prev === brewName ? "" : brewName);
+  };
+
   return (
     <div className="page1">
       <div className="page1-header">
@@ -29,15 +33,12 @@ function Page1({ onSubmit }) {
 
       <div className="brew-section">
         <p className="typing-text">Add your brew...</p>
-
         <div className="brew-options">
-          {brews.map((brew) => (
+          {brews.map(brew => (
             <button
               key={brew.name}
-              className={`brew-button ${brew.class} ${
-                selectedBrew === brew.name ? "selected" : ""
-              }`}
-              onClick={() => setSelectedBrew(brew.name)}
+              className={`brew-button ${brew.class} ${selectedBrew === brew.name ? "selected" : ""}`}
+              onClick={() => handleBrewClick(brew.name)}
             >
               {brew.name}
             </button>
@@ -46,9 +47,9 @@ function Page1({ onSubmit }) {
 
         <textarea
           className="note-field"
-          placeholder="add a note..."
+          placeholder="Add a note..."
           value={note}
-          onChange={(e) => setNote(e.target.value)}
+          onChange={e => setNote(e.target.value.slice(0, 100))}
         />
 
         <button
@@ -59,8 +60,6 @@ function Page1({ onSubmit }) {
           submit
         </button>
       </div>
-
-      <p className="footer">@your-mom</p>
     </div>
   );
 }

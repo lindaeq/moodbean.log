@@ -41,7 +41,7 @@ body {
 }
 .subtitle {
   font-size: 24px;
-  margin-top: 4px; /* reduced gap under logo */
+  margin-top: -26px; /* closer to logo */
   margin-bottom: 20px;
 }
 .brew-section {
@@ -50,7 +50,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin-top: -125px; /* keep centered higher */
+  margin-top: -125px;
 }
 .typing-text {
   font-size: 28px;
@@ -63,7 +63,7 @@ body {
 }
 @keyframes typing {
   from { width: 0; }
-  to { width: 160px; } /* reduced width for fewer spaces */
+  to { width: 160px; }
 }
 @keyframes blink {
   50% { border-color: transparent; }
@@ -84,12 +84,15 @@ body {
   cursor: pointer;
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  text-transform: none; /* lowercase */
+  text-transform: none;
   transition: transform 0.2s, opacity 0.2s;
 }
 .brew-button:hover {
   transform: scale(1.05);
   opacity: 0.9;
+}
+.brew-button.selected {
+  transform: scale(1.05);
 }
 .brew-button.light-latte { background: #ffe6a7; color: #432818; }
 .brew-button.caramel { background: #99582a; color: #fff; }
@@ -125,20 +128,12 @@ body {
   font-family: "Inter", sans-serif;
   font-weight: 600;
   cursor: pointer;
-  text-transform: none; /* lowercase */
+  text-transform: none;
   transition: opacity 0.2s, transform 0.2s;
 }
 .submit-button:hover {
   opacity: 0.85;
   transform: scale(1.05);
-}
-
-/* Footer */
-.footer {
-  position: absolute;
-  bottom: 10px;
-  right: 20px; /* bottom right */
-  font-size: 20px;
 }
 
 /* ---------- Page 2 ---------- */
@@ -156,7 +151,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-top: 15px; /* only for page 2 */
 }
 .strip-middle {
   flex: 1.2;
@@ -167,18 +163,18 @@ body {
   flex: 0.8;
   border-left: 1px solid #ccc;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center; /* center calendar */
   align-items: flex-start;
   background: #fff9f5;
   padding: 10px;
-  overflow-y: auto; /* ensure full scroll */
+  overflow-y: auto; 
 }
 
 /* Page2 typing */
 .typing-large {
   font-size: 28px;
   margin-bottom: 16px;
-  animation: typing 2.5s steps(13, end) forwards, blink 0.8s step-end infinite;
+  white-space: nowrap; /* prevent wrap */
 }
 
 /* Brew buttons same as Page1 */
@@ -233,7 +229,7 @@ body {
 .day-box {
   width: 20px;
   height: 20px;
-  background: #fdf7f2; /* light beige */
+  background: #fdf7f2; 
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
 }
@@ -241,6 +237,21 @@ body {
   background: #ddd;
   transform: scale(1.05);
 }
-.day-box.filled { background: #333; }
+.day-box.filled-light-latte { background: #ffe6a7; }
+.day-box.filled-caramel { background: #99582a; }
+.day-box.filled-medium { background: #bb9457; }
+.day-box.filled-dark { background: #6f1d1b; }
+.day-box.filled-espresso { background: #432818; color: #fff; }
+
+.day-box.pending-light-latte { background: #fff2b8; }
+.day-box.pending-caramel { background: #b57a61; }
+.day-box.pending-medium { background: #d1b287; }
+.day-box.pending-dark { background: #8b3b37; }
+.day-box.pending-espresso { background: #5a1e12; }
+
 .day-box.selected { outline: none; transform: scale(1.05); }
 .day-box.empty { background: transparent; cursor: default; }
+
+.day-box.pending-hover {
+  background: #ddd; /* same as hover */
+}
