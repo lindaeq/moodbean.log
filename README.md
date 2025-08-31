@@ -8,6 +8,8 @@ Try it live here: [https://moody-pearl.vercel.app/](https://moody-pearl.vercel.a
 ## description 📝
 Moodbean.log is an interactive web app that lets users track their daily mood using coffee brews. Select your brew, add a note about your day, and see your moods visualized in a calendar heatmap. It's a simple, fun way to journal your mood while enjoying your favorite coffee vibes!  
 
+I built moodbean.log because I wanted a fun, simple way to track my moods every day and see patterns over time. Coffee has always been part of my daily routine, so I thought it would be fun to tie each day’s mood to the type of coffee I drank and add little notes about how I felt.
+
 ## features ✨
 - Select a brew for the day (light latte, caramel, medium, dark, espresso)
 - Add a personal note (up to 300 characters)
