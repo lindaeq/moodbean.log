@@ -18,6 +18,8 @@ Moodbean.log is an interactive web app that lets users track their daily mood us
 - Interactive, clickable calendar to update moods  
 
 ## how to use 🛠️
+*note: the displays and css may vary based on your device. fixing that part is a work in progress!
+
 1. Navigate to the [live app](https://moody-pearl.vercel.app/).
 2. Select a coffee brew that represents your mood for the day.
 3. Add a short note about your day in the note field.
