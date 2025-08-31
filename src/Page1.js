@@ -4,6 +4,8 @@ import bg from "./assets/background.png"; // import the image
 function Page1({ onSubmit }) {
   const [note, setNote] = useState("");
   const [selectedBrew, setSelectedBrew] = useState("");
+  const maxChars = 300;
+  const charsLeft = maxChars - (note?.length || 0);
 
   const brews = [
     { name: "light latte", class: "light-latte" },
@@ -59,9 +61,15 @@ function Page1({ onSubmit }) {
         <textarea
           className="note-field"
           placeholder="Add a note..."
+          maxLength={maxChars}
           value={note}
           onChange={(e) => setNote(e.target.value)}
         />
+
+        {/* Character counter */}
+        <small style={{ fontFamily: "Inter, sans-serif", fontWeight: 600, fontSize: 12, color: "#999" }}>
+          {charsLeft} characters left
+        </small>
 
         <button
           className="submit-button"

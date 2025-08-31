@@ -218,3 +218,24 @@ body {
 .day-box.selected { outline: none; transform: scale(1.05); }
 .day-box.empty { background: transparent; cursor: default; }
 .day-box.pending-hover { background: #ddd; }
+
+.brew-display {
+  border-radius: 0;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.brew-display {
+  border-radius: 0;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.brew-display.filled-light-latte { background: #ffe6a7; color: #432818; }
+.brew-display.filled-caramel { background: #99582a; color: #fff; }
+.brew-display.filled-medium { background: #bb9457; color: #fff; }
+.brew-display.filled-dark { background: #6f1d1b; color: #fff; }
+.brew-display.filled-espresso { background: #432818; color: #fff; }
+
+.brew-display.pending-light-latte { background: #fff2b8; color: #432818; }
+.brew-display.pending-caramel { background: #b57a61; color: #fff; }
+.brew-display.pending-medium { background: #d1b287; color: #fff; }
+.brew-display.pending-dark { background: #8b3b37; color: #fff; }
+.brew-display.pending-espresso { background: #5a1e12; color: #fff; }
+

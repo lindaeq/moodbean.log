@@ -81,6 +81,7 @@ function Page2({ moods, selectedDay, setSelectedDay, onSubmit }) {
   }
 
   const selectedMood = selectedDay ? moods[selectedDay] : null;
+  const brewTextColor = (selectedMood?.brew === "light latte" || selectedBrew === "light latte") ? "#432818" : "#fff";
 
   return (
     <div
@@ -91,7 +92,7 @@ function Page2({ moods, selectedDay, setSelectedDay, onSubmit }) {
         backgroundPosition: "center",
       }}
     >
-      <div className="strip strip-left" style={{ marginTop: "20px" }}>
+      <div className="strip strip-left" style={{ marginTop: "30px" }}>
         <p className="typing-large">Add your brew...</p>
         <div className="brew-options">
           {brews.map((brew) => (
@@ -110,10 +111,23 @@ function Page2({ moods, selectedDay, setSelectedDay, onSubmit }) {
         <textarea
           className="note-field"
           placeholder="Add a note..."
-          maxLength={100}
+          maxLength={300}  // updated max
           value={note}
           onChange={(e) => setNote(e.target.value)}
         />
+        {/* Characters left display */}
+        <div
+          style={{
+            fontSize: "12px",
+            color: "#",
+            marginTop: "4px",
+            textAlign: "right",
+            fontFamily: "Inter, sans-serif",
+            fontWeight: 600,
+          }}
+        >
+          {300 - note.length} characters left
+        </div>
 
         <button
           className="submit-button"
@@ -135,14 +149,51 @@ function Page2({ moods, selectedDay, setSelectedDay, onSubmit }) {
                   day: "numeric",
                 })}
               </h2>
-              <p>
-                <strong className="inter-label">brew:</strong>{" "}
-                {selectedMood?.brew || selectedBrew || "-"}
-              </p>
-              <p>
-                <strong className="inter-label">note:</strong>{" "}
-                {selectedMood?.note || note || "-"}
-              </p>
+
+              {selectedMood || selectedBrew ? (
+                <>
+                  {/* Note displayed on the left, wrapping properly */}
+                  <div
+                    style={{
+                      maxWidth: "280px",
+                      wordWrap: "break-word",
+                      whiteSpace: "normal",
+                      display: "inline-block",
+                      verticalAlign: "top",
+                      marginTop: "15px",  // small space between lines
+                      fontFamily: "Inter, sans-serif",
+                      fontWeight: 600,
+                      fontSize: 13
+                    }}
+                  >
+                    {selectedMood?.note || note || "-"}
+                  </div>
+
+                  {/* Brew rectangle stays in original spot */}
+                  <div
+                    className={`brew-display ${
+                      selectedMood
+                        ? `filled-${selectedMood.brew.replace(" ", "-")}`
+                        : `pending-${selectedBrew.replace(" ", "-")}`
+                    }`}
+                    style={{
+                      width: "180px",
+                      height: "40px",
+                      pointerEvents: "none",
+                      transform: "translate(300px, -48px)", // keeps it in place
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      fontFamily: "Inter, sans-serif",
+                      fontWeight: 600,
+                      color: brewTextColor,
+                    }}
+                  >
+                    {selectedMood?.brew || selectedBrew}
+                  </div>
+                </>
+              ) : null}
+
             </>
           ) : (
             <h2>{today.toDateString()}</h2>
