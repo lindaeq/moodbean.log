@@ -133,12 +133,11 @@ body {
 }
 .strip-middle {
   flex: 1.2;
-  border-left: 1px solid #ccc;
   padding: 20px;
 }
+
 .strip-right {
   flex: 0.8;
-  border-left: 1px solid #ccc;
   display: flex;
   justify-content: center;
   align-items: flex-start;

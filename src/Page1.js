@@ -31,7 +31,7 @@ function Page1({ onSubmit }) {
       }}
     >
       <div className="page1-header">
-        <h1 className="logo">moodbean.ca</h1>
+        <h1 className="logo">moodbean.log</h1>
         <p className="subtitle">how are you feeling today?</p>
       </div>
 
