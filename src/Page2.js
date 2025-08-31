@@ -16,7 +16,7 @@ function Page2({ moods, selectedDay, setSelectedDay, onSubmit }) {
     { name: "dark", class: "dark" },
     { name: "espresso", class: "espresso" },
   ];
- 
+
   const monthNames = [
     "january","february","march","april","may","june",
     "july","august","september","october","november","december"
@@ -33,6 +33,7 @@ function Page2({ moods, selectedDay, setSelectedDay, onSubmit }) {
     setSelectedBrew("");
     setNote("");
     setPendingDay(null);
+    setSelectedDay(null);
   };
 
   const renderedMonths = [];
@@ -48,13 +49,15 @@ function Page2({ moods, selectedDay, setSelectedDay, onSubmit }) {
             const day = d + 1;
             const dateKey = formatDate(currentYear, m, day);
             const mood = moods[dateKey];
-            const isSelected = selectedDay === dateKey;
             const isPending = pendingDay === dateKey && !mood;
-            const brewClass = mood
-              ? `filled-${mood.brew.replace(" ", "-")}`
-              : isPending
-              ? `pending-${selectedBrew.replace(" ", "-")}`
-              : "";
+            const isSelected = selectedDay === dateKey;
+
+            let brewClass = "";
+            if (mood) {
+              brewClass = `filled-${mood.brew.replace(" ", "-")}`;
+            } else if (isPending) {
+              brewClass = "pending-hover";
+            }
 
             return (
               <div
@@ -63,6 +66,7 @@ function Page2({ moods, selectedDay, setSelectedDay, onSubmit }) {
                 onClick={() => {
                   if (pendingDay === dateKey) {
                     setPendingDay(null);
+                    setSelectedDay(null);
                   } else {
                     setPendingDay(dateKey);
                     setSelectedDay(dateKey);
@@ -93,9 +97,7 @@ function Page2({ moods, selectedDay, setSelectedDay, onSubmit }) {
           {brews.map((brew) => (
             <button
               key={brew.name}
-              className={`brew-button ${brew.class} ${
-                selectedBrew === brew.name ? "selected" : ""
-              }`}
+              className={`brew-button ${brew.class} ${selectedBrew === brew.name ? "selected" : ""}`}
               onClick={() =>
                 setSelectedBrew(selectedBrew === brew.name ? "" : brew.name)
               }
