@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import bg from "./assets/background.png"; // import the image
 
 function Page1({ onSubmit }) {
   const [note, setNote] = useState("");
@@ -20,12 +21,15 @@ function Page1({ onSubmit }) {
     setSelectedBrew("");
   };
 
-  const handleBrewClick = (brewName) => {
-    setSelectedBrew(prev => prev === brewName ? "" : brewName);
-  };
-
   return (
-    <div className="page1">
+    <div
+      className="page1"
+      style={{
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div className="page1-header">
         <h1 className="logo">moodbean.ca</h1>
         <p className="subtitle">how are you feeling today?</p>
@@ -33,12 +37,19 @@ function Page1({ onSubmit }) {
 
       <div className="brew-section">
         <p className="typing-text">Add your brew...</p>
+
         <div className="brew-options">
-          {brews.map(brew => (
+          {brews.map((brew) => (
             <button
               key={brew.name}
-              className={`brew-button ${brew.class} ${selectedBrew === brew.name ? "selected" : ""}`}
-              onClick={() => handleBrewClick(brew.name)}
+              className={`brew-button ${brew.class} ${
+                selectedBrew === brew.name ? "selected" : ""
+              }`}
+              onClick={() =>
+                setSelectedBrew(
+                  selectedBrew === brew.name ? "" : brew.name
+                )
+              }
             >
               {brew.name}
             </button>
@@ -49,7 +60,7 @@ function Page1({ onSubmit }) {
           className="note-field"
           placeholder="Add a note..."
           value={note}
-          onChange={e => setNote(e.target.value.slice(0, 100))}
+          onChange={(e) => setNote(e.target.value)}
         />
 
         <button
